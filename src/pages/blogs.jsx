@@ -9,6 +9,8 @@ const Blogs = () => {
         axios.get('http://localhost:8000/blogs').then((response) => {setData(response.data)});
     }, []);
 
+    if (!data) return null;
+
     return (
         <div>
             {
