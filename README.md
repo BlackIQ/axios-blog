@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# Axios Blog
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We had a class that worked with APIs in ReactJs with out any library. Today we learned how to work with APIs with Axios,
 
-## Available Scripts
+## Axios
 
-In the project directory, you can run:
+In ReactJS, Axios is a library that serves to create HTTP requests that are present externally. It is evident from the fact that we may sometimes in React applications need to get data from the external source. It is quite difficult to fetch such data so that they can be normally shown on the website. Thus, it helps in retrieving the data thereby adding it to the state to facilitate the application whenever the requirement arises.
 
-### `npm start`
+## Pre project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In pre project we had some default ways to fetch data, send a post request and also delete things.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+If you want to read about that project, it is also stored [Here](https://github.com/BlackIQ/React-Blog).
 
-### `npm test`
+## Difference between Axios and normal ways
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Let's talk about some stuff.
 
-### `npm run build`
+### Fetching data
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Fetching data is popular as a **GET** method. Where you get the data from a source.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Normal way
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```javascript
+fetch('http://localhost:8080/blogs')
+.then(response => {
+    return response.json();
+})
+.then((data) => {
+    setData(data);
+    setLoading(false);
+});
+```
 
-### `npm run eject`
+- With Axios
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```javascript
+axios.get('http://localhost:8000/blogs').then((response) => {
+    setData(response.data)
+});
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Post request
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+When you want to send a data to a server or a url that is secured or things like this, you have to use **POST** method.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Normal way
 
-## Learn More
+```javascript
+fetch('http://localhost:8000/blogs/', {
+    method: 'POST',
+    headers: {'Content-Type': 'Application/json'},
+    body: JSON.stringify(blog),
+}).then(() => {
+});
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- With Axios
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+axios.post('http://localhost:8000/blogs', data).then(response => {
+    console.log(response);
+});
+```
 
-### Code Splitting
+### Delete request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Imagine there is a blog in blog array, you want to delete one. So, use **DELETE** method.
 
-### Analyzing the Bundle Size
+- Normal way
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+fetch('http://localhost:8000/blogs/' + id, {
+    method: 'DELETE',
+}).then(() => {
+});
+```
 
-### Making a Progressive Web App
+- With Axios
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```javascript
+axios.delete('http://localhost:8000/blogs/' + id).then(response => {
+    console.log(response);
+});
+```
 
-### Advanced Configuration
+### Put
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+We call Update as **PUT** method. don't get confused.
 
-### Deployment
+- Normal way
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+I don't know how to use Put method in normal way.
 
-### `npm run build` fails to minify
+- With Axios
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+axios.put('http://localhost:8000/blogs/' + id, data).then(response => {
+    console.log(response);
+});
+```
